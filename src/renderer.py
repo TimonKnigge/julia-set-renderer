@@ -3,6 +3,7 @@ from cmath import *
 
 
 def rendertoimage(equation, blowup, _xinterval, _yinterval, _iterations, _resolution, filename):
+    """ Renders the Julia set. For more info on parameters, use python julia.py -h """
     # save globally so they can be used by renderer.pixeltocomplex and renderer.iterationstopixel
     global xinterval, yinterval, resolution, iterations
     xinterval = _xinterval
@@ -33,5 +34,6 @@ def pixeltocomplex(xpos, ypos):
 
 
 def iterationstopixel(i):
+    """ Assigns a color based on iteration count. """
     d = int(i / iterations * 255)
     return d, d, d
