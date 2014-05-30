@@ -2,9 +2,7 @@
 
 Julia set renderer in Python using PIL.
 
-<div style="float: right">
-    <img src="https://raw.githubusercontent.com/TimonKnigge/julia-set-renderer/master/samples/sample1.png" alt="Julia Set of a quadratic polynomial" title="Julia Set of a quadratic polynomial"/>
-</div>
+![Sample image](https://raw.githubusercontent.com/TimonKnigge/julia-set-renderer/master/samples/sample1.png)
 
 ### Usage
 
@@ -17,6 +15,16 @@ python julia.py z**2 - 0.7 + 0.27015j
 (actually, I specified a few extra flags as not to generate an image that fills the entire screen, but the above command will give you the same image, just at a higher resolution)
 
 There are a lot of flags that allow you to customize the image, use `python julia.py -h` to find out more.
+
+The only thing you can't specify using flags is how colors are picked based on iterations, since this process is to complex to capture in a flag. By default, a grayscale color will be picked using linear interpolation. However, you can define your own function in `renderer.py`, for example, the second sample uses this function:
+```Python
+def iterationstopixel(i):
+    delta = i / iterations
+    r = min(3 * delta, 1) * 256
+    g = max(min(3 * delta - 1, 1), 0) * 256
+    b = max(min(3 * delta - 2, 1), 0) * 256
+    return int(r), int(g), int(b)
+```
 
 #### As a module
 

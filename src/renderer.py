@@ -33,8 +33,5 @@ def pixeltocomplex(xpos, ypos):
 
 
 def iterationstopixel(i):
-    delta = i / iterations
-    r = min(3 * delta, 1) * 256
-    g = max(min(3 * delta - 1, 1), 0) * 256
-    b = max(min(3 * delta - 2, 1), 0) * 256
-    return int(r), int(g), int(b)
+    d = int(i / iterations * 255)
+    return d, d, d
