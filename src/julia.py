@@ -1,18 +1,34 @@
 import argparse
 import renderer
-from math import *  # has to be loaded this way for user input parsing
+from cmath import *  # has to be loaded this way for user input parsing
 
 
 def main():
     parser = argparse.ArgumentParser(description="Generates a Julia set for the given equation.")
     parser.add_argument("equation", action="store", nargs='+',
                         help="The equation to generate the Julia set from. Use z as complex variable name.")
-    parser.add_argument("-s", "--size", dest="size", action="store", nargs=2, metavar=('h', 'v'),
+    parser.add_argument("-b", dest="blowup", action="store", metavar="int", type=int,
+                        help="Specify the blowup value for iterations. Default is 2.")
+    parser.add_argument("-x", dest="xinterval", action="store", nargs=2, metavar=('x1', 'x2'), type=int,
+                        help="The interval on the real numbers the image should operate on. Default is [-1, 1].")
+    parser.add_argument("-y", dest="yinterval", action="store", nargs=2, metavar=('y1', 'y2'), type=int,
+                        help="The interval on the imaginary numbers the image should operate on. Default is [-1, 1].")
+    parser.add_argument("-i", dest="iterations", action="store", metavar='int', type=int,
+                        help="Specify the maximum number of iterations for a point. Default is 256.")
+    parser.add_argument("-s", dest="size", action="store", nargs=2, metavar=('h', 'v'), type=int,
                         help="Specify the size of the image to be generated.\nThe default size is 320x320.")
+    parser.add_argument("-f", dest="file", action="store", metavar="filename",
+                        help="File to save the rendering to. Defaults to julia.png")
 
+    # process user input
     args = parser.parse_args()
     equation = " ".join(args.equation)
+    blowup = args.blowup if args.blowup else 2
+    xinterval = args.xinterval if args.xinterval else (-1, 1)
+    yinterval = args.yinterval if args.yinterval else (-1, 1)
+    iterations = args.iterations if args.iterations else 256
     size = (args.size[0], args.size[1]) if args.size else (320, 320)
+    file = args.file if args.file else "julia.png"
 
     try:
         z = 1
@@ -21,7 +37,7 @@ def main():
         print("Error: not a valid equation.")
         return
 
-    renderer.rendertoimage(equation, size)
+    renderer.rendertoimage(equation, xinterval, yinterval, iterations, size, file)
 
 if __name__ == "__main__":
     main()
