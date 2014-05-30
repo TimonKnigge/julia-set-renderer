@@ -18,9 +18,11 @@ def rendertoimage(equation, blowup, _xinterval, _yinterval, _iterations, _resolu
             z = pixeltocomplex(x, y)
             i = 0
             while (i < iterations) and (abs(z) < blowup):
-                z = eval(equation)
+                try:
+                    z = eval(equation)
+                except ZeroDivisionError:
+                    break
                 i += 1
-
             image.putpixel((x, y), iterationstopixel(i))
 
     image.save(filename, "PNG")
@@ -34,6 +36,6 @@ def pixeltocomplex(xpos, ypos):
 
 
 def iterationstopixel(i):
-    """ Assigns a color based on iteration count. """
+    """ Assigns a color based on iteration count. You can implement your own color function here. """
     d = int(i / iterations * 255)
     return d, d, d

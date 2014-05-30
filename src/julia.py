@@ -4,6 +4,7 @@ from cmath import *  # has to be loaded this way for user input parsing
 
 
 def main():
+    """ Main loop, acts as a command-line wrapper for the renderer. """
     parser = argparse.ArgumentParser(description="Generates a Julia set for the given equation.")
     parser.add_argument("equation", action="store", nargs='+',
                         help="The equation to generate the Julia set from. Use z as complex variable name, and general python syntax.")
@@ -20,16 +21,17 @@ def main():
     parser.add_argument("-f", dest="file", action="store", metavar="filename",
                         help="File to save the rendering to. Defaults to julia.png")
 
-    # process user input
+    # process user input, set to defaults if not provided
     args = parser.parse_args()
-    equation = " ".join(args.equation)
-    blowup = args.blowup if args.blowup else 2
-    xinterval = args.xinterval if args.xinterval else (-1, 1)
-    yinterval = args.yinterval if args.yinterval else (-1, 1)
-    iterations = args.iterations if args.iterations else 255
-    size = (args.size[0], args.size[1]) if args.size else (320, 320)
-    file = args.file if args.file else "julia.png"
+    equation    = " ".join(args.equation)
+    blowup      = args.blowup      if args.blowup     else 2
+    xinterval   = args.xinterval   if args.xinterval  else (-1, 1)
+    yinterval   = args.yinterval   if args.yinterval  else (-1, 1)
+    iterations  = args.iterations  if args.iterations else 255
+    size        = tuple(args.size) if args.size       else (320, 320)
+    file        = args.file        if args.file       else "julia.png"
 
+    # test the equation
     try:
         z = 1
         eval(equation)
