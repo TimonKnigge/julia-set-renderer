@@ -37,7 +37,7 @@ def main():
         print("Error: not a valid equation.")
         return
 
-    renderer.rendertoimage(equation, xinterval, yinterval, iterations, size, file)
+    renderer.rendertoimage(equation, blowup, xinterval, yinterval, iterations, size, file)
 
 if __name__ == "__main__":
     main()
