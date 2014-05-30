@@ -2,6 +2,8 @@
 
 Julia set renderer in Python using PIL.
 
+![Sample image](https://raw.githubusercontent.com/TimonKnigge/julia-set-renderer/master/samples/sample1.png)
+
 #### Usage
 
 Example:
