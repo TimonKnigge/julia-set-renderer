@@ -32,7 +32,7 @@ def pixeltocomplex(xpos, ypos):
     """ Uses linear interpolation to convert an image coordinate to its complex value. """
     re = (xpos / resolution[0]) * (xinterval[1] - xinterval[0]) + xinterval[0]
     im = (ypos / resolution[1]) * (yinterval[1] - yinterval[0]) + yinterval[0]
-    return complex(re, im)
+    return complex(re, -im)
 
 
 def iterationstopixel(i):
