@@ -33,7 +33,7 @@ def main():
 
     # test the equation
     try:
-        z = 1
+        z = 1.5
         eval(equation)
     except (ArithmeticError, SyntaxError, NameError, ValueError):
         print("Error: not a valid equation.")
